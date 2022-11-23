@@ -304,7 +304,7 @@ function openMapTerrain(bytes) {
     }
   }
 
-  var anps = [];
+  let anps = [];
 
   while (chunk < bytes.length) {
     if (!areaPanel) areaPanel = new AreaConfigPanel();

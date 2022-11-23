@@ -3,27 +3,19 @@
  */
 
 let Importer = function () {
-
-	let scope = this;
-
 	this.texturePath = '';
-
 	this.importFile = function (file) {
-
 		let filename = file.name;
 		let extension = filename.split('.').pop().toLowerCase();
 		let reader = new FileReader();
-
 		areaLayer.removeAllGrids();
     	terrainLayer.removeAllGrids();
-
 		switch (extension) {
 			case 'terrain':
 				reader.addEventListener('load', function (event) {
 					let buff = event.target.result;
 					let inflate = new Zlib.Inflate(new Uint8Array(buff));
 					let newBuff = inflate.decompress();
-
 					buff = newBuff.buffer;
 					let dv = new DataView(buff);
 					let bytes = [];

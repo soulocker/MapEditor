@@ -10,6 +10,7 @@
   "type": "commonjs",
   "scripts": {
     "test": "test",
+    "start": "electron .",
     "build": "electron-builder",
     "release": "electron-builder build --win -p always"
   },

@@ -224,8 +224,16 @@
       </div>
     </div>
   </body>
+  <!--编辑器脚本-->
+  <script>
+    const { ipcRenderer } = require("electron");
+    ipcRenderer.on("add-file", (event, files) => {
+      files.forEach((f) => {
+        document.getElementById("display-files").innerHTML += `<li>${f}</li>`;
+      });
+    });
+  </script>
   <script src="src/MenuFile.js"></script>
-
   <script src="src/EditorConsts.js"></script>
   <script src="src/Area.js"></script>
   <script src="src/Rectangle.js"></script>

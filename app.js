@@ -1,11 +1,13 @@
 const { autoUpdater } = require("electron-updater");
 const { app, Menu, BrowserWindow } = require("electron");
+
 // include the Node.js 'path' module at the top of your file
 const path = require("path");
 
 let configFilePath = path.join("config", "config.xml");
 if (app.isPackaged)
   configFilePath = path.join(process.cwd(), "/resources/config", "config.xml");
+
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -14,6 +16,7 @@ const createWindow = () => {
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
+    nodeIntegration: true
   });
   let menuTemplate = [
     {
@@ -44,7 +47,11 @@ const createWindow = () => {
   let template = Menu.buildFromTemplate(menuTemplate);
   Menu.setApplicationMenu(template);
 
-  win.loadFile("index.html").then((r) => console.log(r));
+  win.loadFile("index.html").then((r) => {
+    if (r) {
+      console.log(r);
+    }
+  });
 };
 
 app.whenReady().then(() => {
@@ -63,12 +70,22 @@ app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
 });
 
+/*
+ * =========================================================
+ *下面逻辑都是用于从GITHUB自动更新
+ * =========================================================
+ */
+
 app.on("ready", function () {
-  autoUpdater.checkForUpdatesAndNotify();
+  autoUpdater.checkForUpdatesAndNotify().then((r) => {
+    if (r) {
+      console.log(r);
+    }
+  });
 });
 
 function sendStatusToWindow(text) {
-  mainWindow.webContents.send("message", text);
+  window.webContents.send("message", text);
 }
 
 autoUpdater.on("checking-for-update", () => {
@@ -102,8 +119,4 @@ autoUpdater.on("download-progress", (progressObj) => {
 
 autoUpdater.on("update-downloaded", (info) => {
   sendStatusToWindow("Update downloaded");
-});
-
-ipcRenderer.on("message", function (event, text) {
-  console.log(text);
 });
