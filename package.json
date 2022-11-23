@@ -46,8 +46,7 @@
       "installerHeaderIcon": "./assets/appicon.ico",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "玄战地图编辑器",
-      "include": "./build/script/installer.nsh"
+      "shortcutName": "玄战地图编辑器"
     }
   },
   "devDependencies": {
