@@ -8,9 +8,6 @@
   },
   "main": "app.js",
   "type": "commonjs",
-  "directories": {
-    "lib": "lib"
-  },
   "scripts": {
     "test": "test",
     "build": "electron-builder",
@@ -26,11 +23,11 @@
     "productName": "mapeditor",
     "copyright": "1.0.0",
     "directories": {
-      "output": "./installation_package"
+      "output": "build"
     },
     "extraResources": {
-      "from": "./config/",
-      "to": "config"
+      "from": "./assets/",
+      "to": "assets"
     },
     "win": {
       "icon": "./assets/appicon.ico",
