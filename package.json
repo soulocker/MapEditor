@@ -1,0 +1,74 @@
+{
+  "name": "mapeditor",
+  "version": "1.0.0",
+  "description": "fuck the tool",
+  "author": {
+    "name": "SYF & Chaos",
+    "email": "makhim@163.com"
+  },
+  "main": "app.js",
+  "type": "commonjs",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "test",
+    "build": "electron-builder",
+    "release": "electron-builder build --win -p always"
+  },
+  "keywords": [
+    "tile",
+    "map"
+  ],
+  "license": "MIT",
+  "build": {
+    "appId": "com.mapeditor.app",
+    "productName": "mapeditor",
+    "copyright": "1.0.0",
+    "directories": {
+      "output": "./installation_package"
+    },
+    "extraResources": {
+      "from": "./config/",
+      "to": "config"
+    },
+    "win": {
+      "icon": "./assets/appicon.ico",
+      "target": [
+        {
+          "target": "nsis"
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowElevation": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "./assets/appicon.ico",
+      "uninstallerIcon": "./assets/uninstallicon.ico",
+      "installerHeaderIcon": "./assets/appicon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "玄战地图编辑器",
+      "include": "./build/script/installer.nsh"
+    }
+  },
+  "devDependencies": {
+    "electron": "^21.3.0",
+    "electron-builder": "^23.6.0"
+  },
+  "dependencies": {
+    "electron-updater": "^5.3.0",
+    "jquery": "^3.6.1"
+  },
+  "publish": [
+    {
+      "provider": "github",
+      "owner": "***",
+      "repo": "***",
+      "private": true,
+      "token": "***",
+      "releaseType": "release"
+    }
+  ]
+}
