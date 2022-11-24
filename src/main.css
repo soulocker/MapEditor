@@ -73,7 +73,7 @@ body {
 #map {
 
     position: absolute;
-    left: 81px;
+    left: 85px;
     right: 0;
     top:0;
     bottom: 0;
@@ -108,5 +108,14 @@ canvas {
 }
 
 #terrainAlphaSetSlider .slider-selection {
+    background: #BABABA;
+}
+
+#mapBrightnessSlider {
+
+    width: 65px;
+}
+
+#mapBrightnessSlider .slider-selection {
     background: #BABABA;
 }
