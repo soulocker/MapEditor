@@ -1,6 +1,6 @@
 {
   "name": "mapeditor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "fuck the tool",
   "author": {
     "name": "SYF & Chaos",
@@ -22,7 +22,7 @@
   "build": {
     "appId": "com.mapeditor.app",
     "productName": "mapeditor",
-    "copyright": "1.0.0",
+    "copyright": "1.0.1",
     "directories": {
       "output": "build"
     },

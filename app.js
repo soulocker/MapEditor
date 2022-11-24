@@ -1,13 +1,18 @@
+// ----------------------------------------------------------------
+// 导入外部库
+// ----------------------------------------------------------------
 const { autoUpdater } = require("electron-updater");
 const { app, Menu, BrowserWindow } = require("electron");
-
 // include the Node.js 'path' module at the top of your file
 const path = require("path");
-
 let configFilePath = path.join("config", "config.xml");
 if (app.isPackaged)
   configFilePath = path.join(process.cwd(), "/resources/config", "config.xml");
 
+// ----------------------------------------------------------------
+// 导入编辑器库
+// ----------------------------------------------------------------
+const { ImporterHandler } = require("./app/Importer");
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -16,12 +21,20 @@ const createWindow = () => {
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
-    nodeIntegration: true
+    nodeIntegration: true,
   });
   let menuTemplate = [
     {
       label: "导入",
-      submenu: [{ label: "地图图片" }, { label: "地编数据" }],
+      submenu: [
+        {
+          label: "地图图片",
+          click: () => {
+            ImporterHandler.ImportFileDialog()
+          },
+        },
+        { label: "地编数据" },
+      ],
     },
     {
       label: "导出",
