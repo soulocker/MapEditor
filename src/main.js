@@ -88,8 +88,8 @@ $(document).ready(function () {
     }
   });
 
-  var sceneXElement = $("#sceneX");
-  var sceneYElement = $("#sceneY");
+  let sceneXElement = $("#sceneX");
+  let sceneYElement = $("#sceneY");
 
   $("#terrainLayer").mousemove(function (event) {
     sceneXElement.text(
@@ -118,7 +118,7 @@ $(document).ready(function () {
 
   $("#mapBrightness").slider({
     formatter: function (value) {
-      document.getElementById("map").style.filter = "brightness(" + value + ")";
+      document.getElementById("mapImg").style.filter = "brightness(" + value + ")";
       return value;
     },
   });

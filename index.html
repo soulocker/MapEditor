@@ -105,6 +105,7 @@
             <div>
               Exp5<input type="checkbox" name="terrainLayer" value="128" />
             </div>
+            <div>格子透明</div>
             <div>
               <input
                 id="terrainAlphaSet"
@@ -116,6 +117,7 @@
                 data-slider-value="0.3"
               />
             </div>
+            <div>地图亮度</div>
 
             <div>
               <input
@@ -185,7 +187,7 @@
             </div>
           </div>
 
-          <div id="map" style="filter: brightness(1)">
+          <div id="map">
             <img
               id="mapImg"
               src="assets/HowtoUse.png"
@@ -237,12 +239,20 @@
   </body>
   <!--编辑器脚本-->
   <script>
-    const { ipcRenderer } = require("electron");
-    ipcRenderer.on("add-file", (event, files) => {
-      files.forEach((f) => {
-        document.getElementById("display-files").innerHTML += `<li>${f}</li>`;
+
+    let flag =
+      window &&
+      window.process &&
+      window.process.versions &&
+      window.process.versions["electron"];
+    if (flag) {
+      const { ipcRenderer } = require("electron");
+      ipcRenderer.on("add-file", (event, files) => {
+        files.forEach((f) => {
+          document.getElementById("display-files").innerHTML += `<li>${f}</li>`;
+        });
       });
-    });
+    }
   </script>
   <script src="src/MenuFile.js"></script>
   <script src="src/EditorConsts.js"></script>
