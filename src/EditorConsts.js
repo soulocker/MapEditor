@@ -44,10 +44,18 @@ if (!Object.assign) {
 }
 var MapEditorMode = { Edit: 0, View: 1 };
 
+
+
+var gridWidthValueControl = document.getElementById("gridWidth");
+var gridHeightValueControl = document.getElementById("gridWidth");
+
 //格子宽度
-const GRID_WIDTH = 50;
+var GRID_WIDTH = gridWidthValueControl.value;
 //格子高度
-const GRID_HEIGHT = 25;
+var GRID_HEIGHT = gridHeightValueControl.value;
+
+gridWidthValueControl.addEventListener("change", function (e) {GRID_WIDTH = e.target.value;});
+gridHeightValueControl.addEventListener("change", function (e) {GRID_HEIGHT = e.target.value;});
 
 var MAP_TILE_WIDTH = $("#tileWidth").val();
 var MAP_TILE_HEIGHT = $("#tileHeight").val();
