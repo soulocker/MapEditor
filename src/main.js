@@ -118,7 +118,8 @@ $(document).ready(function () {
 
   $("#mapBrightness").slider({
     formatter: function (value) {
-      document.getElementById("mapImg").style.filter = "brightness(" + value + ")";
+      document.getElementById("mapImg").style.filter =
+        "brightness(" + value + ")";
       return value;
     },
   });
@@ -140,3 +141,4 @@ function switchCheckboxStatus(checkbox, mode) {
     checkbox.attributes.setNamedItem(x);
   }
 }
+

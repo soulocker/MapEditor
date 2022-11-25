@@ -10,7 +10,7 @@
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap-slider.min.js"></script>
     <script src="lib/ui/ui.js"></script>
-    <script src="lib/zlib.js"></script>
+    <script src="lib/zlib.min.js"></script>
     <script src="lib/laya.core.js"></script>
     <style type="text/css" media="screen">
       object:focus {
@@ -75,118 +75,151 @@
         <div class="col-md-6 column"></div>
       </div>
       <div id="content" class="row clearfix">
-        <div class="col-md-12 column">
+        <div class="col-md-12">
           <div id="terrainSelect">
-            <div style="font-weight: bold">
-              地形<input type="radio" name="editorType" value="1" checked />
+            <div class="row">
+              <div class="col-xs-12" style="font-weight: bold">
+                笔刷<input type="radio" name="editorType" value="1" checked />
+              </div>
+              <div class="col-xs-6">
+                障碍
+                <input type="checkbox" name="terrainLayer" value="1" checked />
+              </div>
+              <div class="col-xs-6">
+                遮罩 <input type="checkbox" name="terrainLayer" value="2" />
+              </div>
+              <div class="col-xs-6">
+                水路 <input type="checkbox" name="terrainLayer" value="4" />
+              </div>
+              <div class="col-xs-6">
+                跳点 <input type="checkbox" name="terrainLayer" value="8" />
+              </div>
+              <div class="col-xs-6">
+                安全<input type="checkbox" name="terrainLayer" value="16" />
+              </div>
+              <div class="col-xs-6">
+                Exp2<input type="checkbox" name="terrainLayer" value="32" />
+              </div>
+              <div class="col-xs-6">
+                Exp3<input type="checkbox" name="terrainLayer" value="64" />
+              </div>
+              <div class="col-xs-6">
+                Exp5<input type="checkbox" name="terrainLayer" value="128" />
+              </div>
             </div>
-            <div>
-              障碍
-              <input type="checkbox" name="terrainLayer" value="1" checked />
-            </div>
-            <div>
-              遮罩 <input type="checkbox" name="terrainLayer" value="2" />
-            </div>
-            <div>
-              水路 <input type="checkbox" name="terrainLayer" value="4" />
-            </div>
-            <div>
-              跳点 <input type="checkbox" name="terrainLayer" value="8" />
-            </div>
-            <div>
-              安全<input type="checkbox" name="terrainLayer" value="16" />
-            </div>
-            <div>
-              Exp2<input type="checkbox" name="terrainLayer" value="32" />
-            </div>
-            <div>
-              Exp3<input type="checkbox" name="terrainLayer" value="64" />
-            </div>
-            <div>
-              Exp5<input type="checkbox" name="terrainLayer" value="128" />
-            </div>
-            <div>格子透明</div>
-            <div>
-              <input
-                id="terrainAlphaSet"
-                data-slider-id="terrainAlphaSetSlider"
-                type="text"
-                data-slider-min="0"
-                data-slider-max="1"
-                data-slider-step="0.01"
-                data-slider-value="0.3"
-              />
-            </div>
-            <div>地图亮度</div>
-
-            <div>
-              <input
-                id="mapBrightness"
-                data-slider-id="mapBrightnessSlider"
-                type="text"
-                data-slider-min="0.01"
-                data-slider-max="5"
-                data-slider-step="0.01"
-                data-slider-value="1.0"
-              />
+            <div class="row">
+              <div class="col-xs-3 col-xs-offset-1">
+                <div>透明</div>
+                <div>
+                  <input
+                    id="terrainAlphaSet"
+                    data-slider-id="terrainAlphaSetSlider"
+                    type="text"
+                    data-slider-min="0"
+                    data-slider-max="1"
+                    data-slider-step="0.01"
+                    data-slider-value="0.3"
+                  />
+                </div>
+              </div>
+              <div class="col-xs-3 col-xs-offset-1">
+                <div>亮度</div>
+                <div class="row">
+                  <input
+                    id="mapBrightness"
+                    data-slider-id="mapBrightnessSlider"
+                    type="text"
+                    data-slider-min="0.01"
+                    data-slider-max="5"
+                    data-slider-step="0.01"
+                    data-slider-value="1.0"
+                  />
+                </div>
+              </div>
             </div>
             <hr />
-            <div style="font-weight: bold">
-              清除区域<input type="radio" name="editorType" value="2" />
-            </div>
-            <div style="font-weight: bold">
-              清除地形<input type="radio" name="editorType" value="3" />
+            <div class="center-block">
+              <h6>橡皮擦</h6>
+              <div style="font-weight: bold">
+                区域<input type="radio" name="editorType" value="2" />
+              </div>
+              <div style="font-weight: bold">
+                地形<input type="radio" name="editorType" value="3" />
+              </div>
             </div>
             <hr />
 
-            <div class="form-group input-group">
+            <div class="form-group container-fluid">
               <div class="input-group-prepend">
-                <span class="input-group-text">格子宽度</span>
+                <h4>格子宽高</h4>
               </div>
-              <input
-                id="gridWidth"
-                type="text"
-                class="form-control"
-                value="50"
-              />
-              <div class="input-group-prepend">
-                <span class="input-group-text">格子高度</span>
+              <div class="row">
+                <div class="col-xs-6">
+                  <input
+                    id="gridWidth"
+                    type="text"
+                    class="form-control"
+                    value="50"
+                  />
+                </div>
+                <div class="col-xs-6">
+                  <input
+                    id="gridHeight"
+                    type="text"
+                    class="form-control"
+                    value="25"
+                  />
+                </div>
               </div>
-              <input
-                id="gridHeight"
-                type="text"
-                class="form-control"
-                value="25"
-              />
             </div>
 
-            <div class="form-group input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text">切图宽度</span>
+            <div class="form-group container-fluid">
+              <div>
+                <h4>切图大小</h4>
               </div>
-              <input
-                id="tileWidth"
-                type="text"
-                class="form-control"
-                value="512"
-              />
-              <div class="input-group-prepend">
-                <span class="input-group-text">切图高度</span>
+              <div class="row">
+                <div class="col-xs-6">
+                  <input
+                    id="tileWidth"
+                    type="text"
+                    class="form-control"
+                    value="512"
+                  />
+                </div>
+                <div class="col-xs-6">
+                  <input
+                    id="tileHeight"
+                    type="text"
+                    class="form-control"
+                    value="256"
+                  />
+                </div>
               </div>
-              <input
-                id="tileHeight"
-                type="text"
-                class="form-control"
-                value="256"
-              />
             </div>
             <hr />
             <div style="text-align: left; padding-left: 5px; color: red">
               <div>X：<span id="sceneX">0（0）</span></div>
               <div>Y：<span id="sceneY">0（0）</span></div>
             </div>
+            <hr />
+            <div class="center-block">
+              <button
+                id="SetEditModeBtn"
+                class="btn btn-primary"
+                onclick="SetEditMode()"
+              >
+                地编模式
+              </button>
+              <hr />
+              <button
+                id="SetViewModeBtn"
+                class="btn btn-danger"
+                onclick="SetViewMode()"
+              >
+                布怪模式
+              </button>
+            </div>
           </div>
-
           <div id="map">
             <img
               id="mapImg"
@@ -239,7 +272,6 @@
   </body>
   <!--编辑器脚本-->
   <script>
-
     let flag =
       window &&
       window.process &&
@@ -254,6 +286,7 @@
       });
     }
   </script>
+  <script src="src/ToolboxPanel.js"></script>
   <script src="src/MenuFile.js"></script>
   <script src="src/EditorConsts.js"></script>
   <script src="src/Area.js"></script>

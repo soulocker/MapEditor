@@ -1,6 +1,8 @@
 /**
  * Created by Administrator on 2017/6/19.
  */
+
+
 let MenuConfig = function () {
 
     this._areaModal = $("#areaModal");

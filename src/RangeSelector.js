@@ -1,6 +1,7 @@
 /**
  * Created by Administrator on 2017/4/24.
  */
+
 var RangeSelector = function () {
   this._callbacks = [];
   this._rect = new Rectangle(0, 0, 0, 0);
@@ -8,14 +9,18 @@ var RangeSelector = function () {
   this._offsetX = $("#terrainSelect").width();
   this._offsetY = 36;
 
+  this._startX = 0;
+  this._startY = 0;
+
   let div = "<div id='border'></div>";
-  $("#map").append(div);
+  let _map = $("#map");
+  _map.append(div);
   $("#border").css({
     position: "absolute",
   });
 
-  $("#map").mousedown(this._mouseDownHandler.bind(this));
-  $("#map").mouseup(this._mouseUpHandler.bind(this));
+  _map.mousedown(this._mouseDownHandler.bind(this));
+  _map.mouseup(this._mouseUpHandler.bind(this));
 };
 
 RangeSelector.prototype = {
@@ -34,9 +39,12 @@ RangeSelector.prototype = {
 
   _mouseDownHandler: function (event) {
     if (event.button === 0) {
-      this.startX = event.clientX - this._offsetX + $("#map").scrollLeft();
-      this.startY = event.clientY - this._offsetY + $("#map").scrollTop();
+      let _map = $("#map");
+      this.startX = event.clientX - this._offsetX + _map.scrollLeft();
+      this.startY = event.clientY - this._offsetY + _map.scrollTop();
 
+      this._startX = parseInt(event.offsetX / GRID_WIDTH);
+      this._startY = parseInt(event.offsetY / GRID_HEIGHT);
       this.endX = this.startX;
       this.endY = this.startY;
 
@@ -48,19 +56,33 @@ RangeSelector.prototype = {
         height: 0,
         display: "block",
       });
-      $("#map").mousemove(this._mouseMoveHandler.bind(this));
+      _map.mousemove(this._mouseMoveHandler.bind(this));
       this.draw();
     }
   },
 
   _mouseMoveHandler: function (event) {
-    let _mapZone = $("#map")
+    let _mapZone = $("#map");
     this.endX = event.clientX - this._offsetX + _mapZone.scrollLeft();
     this.endY = event.clientY - this._offsetY + _mapZone.scrollTop();
     this.draw();
   },
 
   _mouseUpHandler: function (event) {
+    if (Mode === MapEditorMode.View) {
+      let endX = parseInt(event.offsetX / GRID_WIDTH);
+      let endY = parseInt(event.offsetY / GRID_HEIGHT);
+      console.log("起点 X:" + this._startX + " | 起点 Y:" + this._startY);
+      console.log("终点 X:" + endX + " | 终点 Y:" + endY);
+
+      let width = endX - this._startX + 1;
+      let height = endY - this._startY + 1;
+      let copyTxt =
+        this._startX + "\t" + this._startY + "\t" + width + "\t" + height;
+      navigator.clipboard.writeText(copyTxt).then(() => {
+        console.log("复制成功：" + copyTxt);
+      });
+    }
     $("#border").css({
       border: "0px solid  #0000ff",
       width: 0,
