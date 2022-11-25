@@ -43,12 +43,11 @@ if (!Object.assign) {
   });
 }
 var MapEditorMode = { Edit: 0, View: 1 };
-
-
-
-var gridWidthValueControl = document.getElementById("gridWidth");
-var gridHeightValueControl = document.getElementById("gridWidth");
-
+// ----------------------------------------------------------------
+// 通过网页设置获取格子宽高并且监听实时改变
+// ----------------------------------------------------------------
+let gridWidthValueControl = document.getElementById("gridWidth");
+let gridHeightValueControl = document.getElementById("gridHeight");
 //格子宽度
 var GRID_WIDTH = gridWidthValueControl.value;
 //格子高度
