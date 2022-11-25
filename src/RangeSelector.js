@@ -80,7 +80,7 @@ RangeSelector.prototype = {
       let copyTxt =
         this._startX + "\t" + this._startY + "\t" + width + "\t" + height;
       navigator.clipboard.writeText(copyTxt).then(() => {
-        console.log("复制成功：" + copyTxt);
+        console.log("复制：" + copyTxt);
       });
     }
     $("#border").css({

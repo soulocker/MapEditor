@@ -8,7 +8,6 @@ const path = require("path");
 let configFilePath = path.join("config", "config.xml");
 if (app.isPackaged)
   configFilePath = path.join(process.cwd(), "/resources/config", "config.xml");
-
 // ----------------------------------------------------------------
 // 导入编辑器库
 // ----------------------------------------------------------------
@@ -30,7 +29,7 @@ const createWindow = () => {
         {
           label: "地图图片",
           click: () => {
-            ImporterHandler.ImportFileDialog()
+            ImporterHandler.ImportFileDialog();
           },
         },
         { label: "地编数据" },

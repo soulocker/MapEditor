@@ -124,6 +124,7 @@ $(document).ready(function () {
     },
   });
 });
+
 /*
  * 切换地块勾选状态
  * @param {HTMLInputElement} checkbox
@@ -141,4 +142,3 @@ function switchCheckboxStatus(checkbox, mode) {
     checkbox.attributes.setNamedItem(x);
   }
 }
-
