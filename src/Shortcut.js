@@ -1,3 +1,4 @@
+// @ts-nocheck
 let Shortcut = function () {
   let KEY_ZOOM_IN;
   let KEY_ZOOM_OUT;
@@ -13,6 +14,7 @@ Shortcut.prototype = {
       let gridTypeCheckboxGroup = $(
         "#terrainSelect input[name='terrainLayer']"
       );
+      console.log("您按下了：" + event.keyCode)
       switch (event.keyCode) {
         case KEY_ERASER:
           areaLayer.setEnable(false);

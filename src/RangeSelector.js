@@ -2,6 +2,7 @@
  * Created by Administrator on 2017/4/24.
  */
 
+
 var RangeSelector = function () {
   this._callbacks = [];
   this._rect = new Rectangle(0, 0, 0, 0);
@@ -9,8 +10,6 @@ var RangeSelector = function () {
   this._offsetX = $("#terrainSelect").width();
   this._offsetY = 36;
 
-  this._startX = 0;
-  this._startY = 0;
 
   let div = "<div id='border'></div>";
   let _map = $("#map");
@@ -40,6 +39,7 @@ RangeSelector.prototype = {
   _mouseDownHandler: function (event) {
     if (event.button === 0) {
       let _map = $("#map");
+      // 按下左键时鼠标在画布上的坐标
       this.startX = event.clientX - this._offsetX + _map.scrollLeft();
       this.startY = event.clientY - this._offsetY + _map.scrollTop();
 
@@ -101,6 +101,7 @@ RangeSelector.prototype = {
 
   draw: function () {
     var minX, maxX, minY, maxY;
+    console.log("startX:" + this.startX + " | startY:" + this.startY + "|" + "endX:" + this.endX + " | endY:" + this.endY);
     if (this.startX <= this.endX) {
       minX = this.startX;
       maxX = this.endX;
@@ -118,8 +119,8 @@ RangeSelector.prototype = {
     $("#border").css({
       left: minX + "px",
       top: minY + "px",
-      width: maxX - minX + "px",
-      height: maxY - minY + "px",
+      width: (maxX - minX) + "px",
+      height: (maxY - minY) + "px",
     });
     this._rect.x = minX;
     this._rect.y = minY;

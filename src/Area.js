@@ -3,7 +3,7 @@
  */
 
 /**
- * 区域邻居对
+ * 区域关联
  * */
 let AreaNeighborPair = function (area0, area1) {
 
@@ -17,7 +17,7 @@ AreaNeighborPair.prototype = {
     constructor: AreaNeighborPair,
 
     /**
-     * 是否属于邻居对一员
+     * 是否属于关联一员
      * */
     isRefArea: function (area) {
 
@@ -152,7 +152,7 @@ Object.assign(AreaConfigPanel.prototype, {
     },
 
     /**
-     * 是否已经存在两个区域的邻居对象
+     * 是否已经存在两个区域的关联象
      * */
     hasNeighborPair: function (area0, area1) {
 
@@ -172,7 +172,7 @@ Object.assign(AreaConfigPanel.prototype, {
     },
 
     /**
-     * 获得指定区域的邻居对象列表
+     * 获得指定区域的关联象列表
      * */
     getNeighbors: function (area) {
 
@@ -192,7 +192,7 @@ Object.assign(AreaConfigPanel.prototype, {
 
 
     /**
-     * 保存当前区域的邻居对象
+     * 保存当前区域的关联象
      * */
     saveAreaCFG: function () {
 

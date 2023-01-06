@@ -48,13 +48,14 @@ var MapEditorMode = { Edit: 0, View: 1 };
 // ----------------------------------------------------------------
 let gridWidthValueControl = document.getElementById("gridWidth");
 let gridHeightValueControl = document.getElementById("gridHeight");
-//格子宽度
-var GRID_WIDTH = gridWidthValueControl.value;
-//格子高度
-var GRID_HEIGHT = gridHeightValueControl.value;
-
 gridWidthValueControl.addEventListener("change", function (e) {GRID_WIDTH = e.target.value;});
-gridHeightValueControl.addEventListener("change", function (e) {GRID_HEIGHT = e.target.value;});
+gridHeightValueControl.addEventListener("change", function (e) { GRID_HEIGHT = e.target.value; });
+
+//格子宽度
+var GRID_WIDTH = parseInt(gridWidthValueControl.value);
+//格子高度
+var GRID_HEIGHT = parseInt(gridHeightValueControl.value);
+
 
 var MAP_TILE_WIDTH = $("#tileWidth").val();
 var MAP_TILE_HEIGHT = $("#tileHeight").val();
@@ -78,7 +79,7 @@ const EXP1 = 64;
 const EXP2 = 128;
 
 // 编辑器模式
-var Mode = 0;
+var Mode = MapEditorMode.Edit;
 //区域的canvas层
 var areaLayer;
 //地形的canvas层
@@ -100,4 +101,4 @@ function getValidHeight(height) {
   return Math.ceil(height / GRID_HEIGHT) * GRID_HEIGHT;
 }
 
-ViewportScale = 1;
+ViewportScale = 1
