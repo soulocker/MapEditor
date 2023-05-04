@@ -1,75 +1,74 @@
 {
-  "name": "mapeditor",
-  "version": "1.0.1",
-  "description": "fuck the tool",
-  "author": {
-    "name": "SYF & Chaos",
-    "email": "makhim@163.com"
-  },
-  "main": "app.js",
-  "type": "commonjs",
-  "scripts": {
-    "test": "test",
-    "start": "electron .",
-    "build": "electron-builder",
-    "release": "electron-builder build --win -p always"
-  },
-  "keywords": [
-    "tile",
-    "map"
-  ],
-  "license": "MIT",
-  "build": {
-    "appId": "com.mapeditor.app",
-    "productName": "mapeditor",
-    "copyright": "1.0.1",
-    "directories": {
-      "output": "build"
+    "name": "mapeditor",
+    "version": "1.0.1",
+    "description": "fuck the tool",
+    "author": {
+        "name": "Chaos",
+        "email": "makhim@163.com"
     },
-    "extraResources": {
-      "from": "./assets/",
-      "to": "assets"
+    "main": "app.js",
+    "type": "commonjs",
+    "scripts": {
+        "start": "electron .",
+        "build": "electron-builder",
+        "release": "electron-builder build --win -p always"
     },
-    "win": {
-      "icon": "./assets/appicon.ico",
-      "target": [
-        {
-          "target": "nsis"
+    "keywords": [
+        "tile",
+        "map"
+    ],
+    "license": "MIT",
+    "build": {
+        "appId": "com.mapeditor.app",
+        "productName": "mapeditor",
+        "copyright": "1.0.1",
+        "directories": {
+            "output": "build"
+        },
+        "extraResources": {
+            "from": "./assets/",
+            "to": "assets"
+        },
+        "win": {
+            "icon": "./assets/appicon.ico",
+            "target": [
+                {
+                    "target": "nsis"
+                }
+            ],
+            "publish": [
+                "github"
+            ]
+        },
+        "nsis": {
+            "oneClick": false,
+            "allowElevation": false,
+            "allowToChangeInstallationDirectory": true,
+            "installerIcon": "./assets/appicon.ico",
+            "uninstallerIcon": "./assets/uninstallicon.ico",
+            "installerHeaderIcon": "./assets/appicon.ico",
+            "createDesktopShortcut": true,
+            "createStartMenuShortcut": true,
+            "shortcutName": "玄战地图编辑器"
         }
-      ],
-      "publish": [
-        "github"
-      ]
     },
-    "nsis": {
-      "oneClick": false,
-      "allowElevation": false,
-      "allowToChangeInstallationDirectory": true,
-      "installerIcon": "./assets/appicon.ico",
-      "uninstallerIcon": "./assets/uninstallicon.ico",
-      "installerHeaderIcon": "./assets/appicon.ico",
-      "createDesktopShortcut": true,
-      "createStartMenuShortcut": true,
-      "shortcutName": "玄战地图编辑器"
-    }
-  },
-  "devDependencies": {
-    "@types/jquery": "^3.5.16",
-    "electron": "^21.3.0",
-    "electron-builder": "^23.6.0",
-    "keypress": "^0.2.1"
-  },
-  "dependencies": {
-    "electron-updater": "^5.3.0"
-  },
-  "publish": [
-    {
-      "provider": "github",
-      "owner": "soulocker",
-      "repo": "MapEditor",
-      "private": true,
-      "token": "$GH_TOKEN",
-      "releaseType": "release"
-    }
-  ]
+    "devDependencies": {
+        "@types/jquery": "^3.5.16",
+        "electron": "^21.3.0",
+        "electron-builder": "^23.6.0",
+        "keypress": "^0.2.1"
+    },
+    "dependencies": {
+        "electron-updater": "^5.3.0"
+    },
+    "publish": [
+        {
+            "provider": "github",
+            "owner": "soulocker",
+            "repo": "MapEditor",
+            "private": true,
+            "token": "$GH_TOKEN",
+            "releaseType": "release"
+        }
+    ]
 }

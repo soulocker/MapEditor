@@ -1,302 +1,233 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <title>玄战地图编辑器</title>
-    <script src="lib/jquery/jquery-3.2.1.min.js"></script>
-    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-slider.min.css" />
-    <link rel="stylesheet" href="src/main.css" />
-    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="lib/bootstrap/js/bootstrap-slider.min.js"></script>
-    <script src="lib/ui/ui.js"></script>
-    <script src="lib/zlib.min.js"></script>
-    <script src="lib/laya.core.js"></script>
-    <style type="text/css" media="screen">
-      object:focus {
-        outline: none;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="main" class="container-fluid">
-      <div id="menu" class="row clearfix">
-        <div class="col-md-6 column">
-          <div class="btn-group">
-            <button
-              data-toggle="dropdown"
-              class="btn btn-default dropdown-toggle"
-            >
-              文件<span class="caret"></span>
-            </button>
-            <ul id="fileMenu" class="dropdown-menu">
-              <li>
-                <a href="#open" id="open">打开文件</a>
-              </li>
-              <li class="divider"></li>
-              <li>
-                <a href="#terrain" id="exportTerrain">导出地形</a>
-              </li>
-              <li>
-                <a href="#mapZone" id="exportMapZone">切图输出</a>
-              </li>
-              <li>
-                <a href="#thumbnail" id="exportThumbnail">导缩略图</a>
-              </li>
-              <li>
-                <a href="#tileData" id="exportTileData">导出瓦片</a>
-              </li>
-            </ul>
-          </div>
-          <div class="btn-group">
-            <button
-              data-toggle="dropdown"
-              class="btn btn-default dropdown-toggle"
-            >
-              配置<span class="caret"></span>
-            </button>
-            <ul id="fileMenu1" class="dropdown-menu">
-              <li>
-                <a
-                  id="areaModal"
-                  href="#areaPanel"
-                  role="button"
-                  class="btn"
-                  data-toggle="modal"
-                  >区域</a
-                >
-              </li>
-            </ul>
-          </div>
-          | MapEditor: <span id="node-version"></span>, Chromium
-          <span id="chrome-version"></span>, and Electron
-          <span id="electron-version"></span>
+    <head>
+        <meta charset="UTF-8" />
+        <title>玄战地图编辑器</title>
+        <script src="lib/jquery/jquery-3.2.1.min.js"></script>
+        <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-slider.min.css" />
+        <link rel="stylesheet" href="src/main.css" />
+        <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+        <script src="lib/bootstrap/js/bootstrap-slider.min.js"></script>
+        <script src="lib/ui/ui.js"></script>
+        <script src="lib/zlib.min.js"></script>
+        <script src="lib/laya.core.js"></script>
+        <style type="text/css" media="screen">
+            object:focus {
+                outline: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="main" class="container-fluid">
+            <div id="menu" class="row clearfix">
+                <div class="col-md-6 column">
+                    <div class="btn-group">
+                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">
+                            文件<span class="caret"></span>
+                        </button>
+                        <ul id="fileMenu" class="dropdown-menu">
+                            <li>
+                                <a href="#open" id="open">打开文件</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#terrain" id="exportTerrain">导出地形</a>
+                            </li>
+                            <li>
+                                <a href="#mapZone" id="exportMapZone">切图输出</a>
+                            </li>
+                            <li>
+                                <a href="#thumbnail" id="exportThumbnail">导缩略图</a>
+                            </li>
+                            <li>
+                                <a href="#tileData" id="exportTileData">导出瓦片</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btn-group">
+                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">
+                            配置<span class="caret"></span>
+                        </button>
+                        <ul id="fileMenu1" class="dropdown-menu">
+                            <li>
+                                <a id="areaModal" href="#areaPanel" role="button" class="btn" data-toggle="modal"
+                                    >区域</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                    | MapEditor: <span id="node-version"></span>, Chromium <span id="chrome-version"></span>, and
+                    Electron
+                    <span id="electron-version"></span>
+                </div>
+                <div class="col-md-6 column"></div>
+            </div>
+            <div id="content" class="row clearfix">
+                <div class="col-md-12">
+                    <div id="terrainSelect">
+                        <div class="row">
+                            <div class="col-xs-12" style="font-weight: bold">
+                                笔刷<input type="radio" name="editorType" value="1" checked />
+                            </div>
+                            <div class="col-xs-6">
+                                障碍
+                                <input type="checkbox" name="terrainLayer" value="1" checked />
+                            </div>
+                            <div class="col-xs-6">遮罩 <input type="checkbox" name="terrainLayer" value="2" /></div>
+                            <div class="col-xs-6">水路 <input type="checkbox" name="terrainLayer" value="4" /></div>
+                            <div class="col-xs-6">跳点 <input type="checkbox" name="terrainLayer" value="8" /></div>
+                            <div class="col-xs-6">安全<input type="checkbox" name="terrainLayer" value="16" /></div>
+                            <div class="col-xs-6">Exp2<input type="checkbox" name="terrainLayer" value="32" /></div>
+                            <div class="col-xs-6">Exp3<input type="checkbox" name="terrainLayer" value="64" /></div>
+                            <div class="col-xs-6">Exp5<input type="checkbox" name="terrainLayer" value="128" /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3 col-xs-offset-1">
+                                <div>透明</div>
+                                <div>
+                                    <input
+                                        id="terrainAlphaSet"
+                                        data-slider-id="terrainAlphaSetSlider"
+                                        type="text"
+                                        data-slider-min="0"
+                                        data-slider-max="1"
+                                        data-slider-step="0.01"
+                                        data-slider-value="0.3" />
+                                </div>
+                            </div>
+                            <div class="col-xs-3 col-xs-offset-1">
+                                <div>亮度</div>
+                                <div class="row">
+                                    <input
+                                        id="mapBrightness"
+                                        data-slider-id="mapBrightnessSlider"
+                                        type="text"
+                                        data-slider-min="0.01"
+                                        data-slider-max="5"
+                                        data-slider-step="0.01"
+                                        data-slider-value="1.0" />
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="center-block">
+                            <h6>橡皮擦</h6>
+                            <div class="row">
+                                <div class="col-xs-6" style="font-weight: bold">
+                                    区域<input type="radio" name="editorType" value="2" />
+                                </div>
+                                <div class="col-xs-6" style="font-weight: bold">
+                                    地形<input type="radio" name="editorType" value="3" />
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+
+                        <div class="form-group container-fluid">
+                            <div class="input-group-prepend">
+                                <h4>格子宽高</h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <input id="gridWidth" type="text" class="form-control" value="50" />
+                                </div>
+                                <div class="col-xs-6">
+                                    <input id="gridHeight" type="text" class="form-control" value="25" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group container-fluid">
+                            <div>
+                                <h4>切图大小</h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <input id="tileWidth" type="text" class="form-control" value="512" />
+                                </div>
+                                <div class="col-xs-6">
+                                    <input id="tileHeight" type="text" class="form-control" value="256" />
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <div style="text-align: left; padding-left: 5px; color: red">
+                            <div>X：<span id="sceneX">0（0）</span></div>
+                            <div>Y：<span id="sceneY">0（0）</span></div>
+                        </div>
+                        <hr />
+                        <div class="center-block">
+                            <button id="SetEditModeBtn" class="btn btn-primary" onclick="SetEditMode()">
+                                地编模式
+                            </button>
+                            <hr />
+                            <button id="SetViewModeBtn" class="btn btn-danger" onclick="SetViewMode()">布怪模式</button>
+                        </div>
+                    </div>
+                    <div id="map">
+                        <img
+                            id="mapImg"
+                            src="assets/HowtoUse.png"
+                            ondragstart="return false"
+                            onload="mapLoaded()"
+                            alt="" />
+                        <canvas id="areaLayer"></canvas>
+                        <canvas id="terrainLayer"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix">
+                <div class="col-md-12 column">
+                    <div
+                        class="modal fade"
+                        id="areaPanel"
+                        role="dialog"
+                        aria-labelledby="myModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                        ×
+                                    </button>
+                                    <h4 class="modal-title" id="myModalLabel">区域配置</h4>
+                                </div>
+                                <div class="modal-body" id="areaLink"></div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" id="saveArea">保存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6 column"></div>
-      </div>
-      <div id="content" class="row clearfix">
-        <div class="col-md-12">
-          <div id="terrainSelect">
-            <div class="row">
-              <div class="col-xs-12" style="font-weight: bold">
-                笔刷<input type="radio" name="editorType" value="1" checked />
-              </div>
-              <div class="col-xs-6">
-                障碍
-                <input type="checkbox" name="terrainLayer" value="1" checked />
-              </div>
-              <div class="col-xs-6">
-                遮罩 <input type="checkbox" name="terrainLayer" value="2" />
-              </div>
-              <div class="col-xs-6">
-                水路 <input type="checkbox" name="terrainLayer" value="4" />
-              </div>
-              <div class="col-xs-6">
-                跳点 <input type="checkbox" name="terrainLayer" value="8" />
-              </div>
-              <div class="col-xs-6">
-                安全<input type="checkbox" name="terrainLayer" value="16" />
-              </div>
-              <div class="col-xs-6">
-                Exp2<input type="checkbox" name="terrainLayer" value="32" />
-              </div>
-              <div class="col-xs-6">
-                Exp3<input type="checkbox" name="terrainLayer" value="64" />
-              </div>
-              <div class="col-xs-6">
-                Exp5<input type="checkbox" name="terrainLayer" value="128" />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-3 col-xs-offset-1">
-                <div>透明</div>
-                <div>
-                  <input
-                    id="terrainAlphaSet"
-                    data-slider-id="terrainAlphaSetSlider"
-                    type="text"
-                    data-slider-min="0"
-                    data-slider-max="1"
-                    data-slider-step="0.01"
-                    data-slider-value="0.3"
-                  />
-                </div>
-              </div>
-              <div class="col-xs-3 col-xs-offset-1">
-                <div>亮度</div>
-                <div class="row">
-                  <input
-                    id="mapBrightness"
-                    data-slider-id="mapBrightnessSlider"
-                    type="text"
-                    data-slider-min="0.01"
-                    data-slider-max="5"
-                    data-slider-step="0.01"
-                    data-slider-value="1.0"
-                  />
-                </div>
-              </div>
-            </div>
-            <hr />
-            <div class="center-block">
-              <h6>橡皮擦</h6>
-              <div class="row">
-              <div class = "col-xs-6" style="font-weight: bold">
-                区域<input type="radio" name="editorType" value="2" />
-              </div>
-              <div  class = "col-xs-6" style="font-weight: bold">
-                地形<input type="radio" name="editorType" value="3" />
-              </div></div>
-            </div>
-            <hr />
-
-            <div class="form-group container-fluid">
-              <div class="input-group-prepend">
-                <h4>格子宽高</h4>
-              </div>
-              <div class="row">
-                <div class="col-xs-6">
-                  <input
-                    id="gridWidth"
-                    type="text"
-                    class="form-control"
-                    value="50"
-                  />
-                </div>
-                <div class="col-xs-6">
-                  <input
-                    id="gridHeight"
-                    type="text"
-                    class="form-control"
-                    value="25"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group container-fluid">
-              <div>
-                <h4>切图大小</h4>
-              </div>
-              <div class="row">
-                <div class="col-xs-6">
-                  <input
-                    id="tileWidth"
-                    type="text"
-                    class="form-control"
-                    value="512"
-                  />
-                </div>
-                <div class="col-xs-6">
-                  <input
-                    id="tileHeight"
-                    type="text"
-                    class="form-control"
-                    value="256"
-                  />
-                </div>
-              </div>
-            </div>
-            <hr />
-            <div style="text-align: left; padding-left: 5px; color: red">
-              <div>X：<span id="sceneX">0（0）</span></div>
-              <div>Y：<span id="sceneY">0（0）</span></div>
-            </div>
-            <hr />
-            <div class="center-block">
-              <button
-                id="SetEditModeBtn"
-                class="btn btn-primary"
-                onclick="SetEditMode()"
-              >
-                地编模式
-              </button>
-              <hr />
-              <button
-                id="SetViewModeBtn"
-                class="btn btn-danger"
-                onclick="SetViewMode()"
-              >
-                布怪模式
-              </button>
-            </div>
-          </div>
-          <div id="map">
-            <img
-              id="mapImg"
-              src="assets/HowtoUse.png"
-              ondragstart="return false"
-              onload="mapLoaded()"
-              alt=""
-            />
-            <canvas id="areaLayer"></canvas>
-            <canvas id="terrainLayer"></canvas>
-          </div>
-        </div>
-      </div>
-
-      <div class="row clearfix">
-        <div class="col-md-12 column">
-          <div
-            class="modal fade"
-            id="areaPanel"
-            role="dialog"
-            aria-labelledby="myModalLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-hidden="true"
-                  >
-                    ×
-                  </button>
-                  <h4 class="modal-title" id="myModalLabel">区域配置</h4>
-                </div>
-                <div class="modal-body" id="areaLink"></div>
-
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" id="saveArea">
-                    保存
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </body>
-  <!--编辑器脚本-->
-  <script>
-    let flag =
-      window &&
-      window.process &&
-      window.process.versions &&
-      window.process.versions["electron"];
-    if (flag) {
-      const { ipcRenderer } = require("electron");
-      ipcRenderer.on("add-file", (event, files) => {
-        files.forEach((f) => {
-          document.getElementById("display-files").innerHTML += `<li>${f}</li>`;
-        });
-      });
-    }
-  </script>
-  <script src="src/ToolboxPanel.js"></script>
-  <script src="src/MenuFile.js"></script>
-  <script src="src/EditorConsts.js"></script>
-  <script src="src/Area.js"></script>
-  <script src="src/Rectangle.js"></script>
-  <script src="src/RangeSelector.js"></script>
-  <script src="src/Grid.js"></script>
-  <script src="src/Importer.js"></script>
-  <script src="src/Exporter.js"></script>
-  <script src="src/CanvasLayer.js"></script>
-  <script src="src/MenuConfig.js"></script>
-  <script src="src/main.js"></script>
+    </body>
+    <!--编辑器脚本-->
+    <script>
+        let flag = window && window.process && window.process.versions && window.process.versions["electron"];
+        if (flag) {
+            const { ipcRenderer } = require("electron");
+            ipcRenderer.on("add-file", (event, files) => {
+                files.forEach((f) => {
+                    document.getElementById("display-files").innerHTML += `<li>${f}</li>`;
+                });
+            });
+        }
+    </script>
+    <script src="src/ToolboxPanel.js"></script>
+    <script src="src/MenuFile.js"></script>
+    <script src="src/EditorConsts.js"></script>
+    <script src="src/Area.js"></script>
+    <script src="src/Rectangle.js"></script>
+    <script src="src/RangeSelector.js"></script>
+    <script src="src/Grid.js"></script>
+    <script src="src/Importer.js"></script>
+    <script src="src/Exporter.js"></script>
+    <script src="src/CanvasLayer.js"></script>
+    <script src="src/MenuConfig.js"></script>
+    <script src="src/main.js"></script>
 </html>
